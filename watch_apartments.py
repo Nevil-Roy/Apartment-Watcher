@@ -164,17 +164,21 @@ def format_listing(obj):
 
 
 def send_telegram(message):
-    if not (TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID):
+    if not TELEGRAM_BOT_TOKEN:
+        return
+    chat_ids = [c.strip() for c in TELEGRAM_CHAT_ID.split(",") if c.strip()]
+    if not chat_ids:
         return
     api_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    data = urllib.parse.urlencode({
-        "chat_id": TELEGRAM_CHAT_ID,
-        "text": message,
-    }).encode()
-    try:
-        urllib.request.urlopen(urllib.request.Request(api_url, data=data), timeout=15)
-    except Exception as e:
-        print(f"[warn] Telegram send failed: {e}", file=sys.stderr)
+    for chat_id in chat_ids:
+        data = urllib.parse.urlencode({
+            "chat_id": chat_id,
+            "text": message,
+        }).encode()
+        try:
+            urllib.request.urlopen(urllib.request.Request(api_url, data=data), timeout=15)
+        except Exception as e:
+            print(f"[warn] Telegram send to {chat_id} failed: {e}", file=sys.stderr)
 
 
 def send_whatsapp_callmebot(message):
