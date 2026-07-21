@@ -60,9 +60,7 @@ configured).
 ## One-time setup
 
 ### 1. Create a GitHub repo
-Push this folder to a **private** GitHub repo (public also works and gives
-you more free Action minutes, but a private repo is fine here — each check
-now takes only a few seconds, so even the free 2,000 min/month tier easily
+The free 2,000 min/month tier easily
 covers checking every 5 minutes around the clock).
 
 ### 2. Set up Telegram (recommended, easiest)
